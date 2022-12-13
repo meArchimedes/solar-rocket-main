@@ -1,0 +1,98 @@
+type Query {
+  Mission(id: ID!): Mission
+  Missions(sort: MissionSortOptions): [Mission]!
+  createMission(mission: MissionInput): Mission
+}
+
+type Mutation {
+  updateMission(mission: UpdateMissionInput): Mission
+  createMission(mission: MissionInput): Mission
+  deleteMission(id:DeleteInput): Mission
+}
+
+input MissionInput {
+  title: String!
+  operator: String!
+  launch: LaunchInput!
+  orbit: OrbitInput!
+  payload: PayloadInput!
+}
+input DeleteInput {
+  id: ID!
+}
+input UpdateMissionInput {
+  id:String!
+  title: String!
+  operator: String!
+  launch: LaunchInput!
+  orbit: OrbitInput!
+  payload: PayloadInput!
+}
+
+input LaunchInput {
+  date: DateTime!
+  vehicle: String!
+  location: LocationInput!
+}
+
+input LocationInput {
+  name: String!
+  longitude: Float!
+  Latitude: Float!
+}
+
+input OrbitInput {
+  periapsis: Int!
+  apoapsis: Int!
+  inclination: Int!
+}
+
+input PayloadInput {
+  capacity: Int!
+  available: Int!
+}
+
+input MissionSortOptions {
+  field: MissionSortFields!
+  desc: Boolean
+}
+
+enum MissionSortFields {
+  Title
+  Date
+  Operator
+}
+
+type Mission {
+  id: ID!
+  title: String!
+  operator: String!
+  launch: Launch!
+  orbit: Orbit!
+  payload: Payload!
+}
+
+type Launch {
+  date: DateTime!
+  vehicle: String!
+  location: Location!
+}
+
+type Location {
+  name: String!
+  longitude: Float!
+  Latitude: Float!
+}
+
+type Orbit {
+  periapsis: Int!
+  apoapsis: Int!
+  inclination: Int!
+}
+
+type Payload {
+  capacity: Int!
+  available: Int!
+}
+
+scalar DateTime
